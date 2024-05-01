@@ -20,8 +20,5 @@ public class ArticuloInsumo extends Articulo {
     private Integer stockActual;
     private Integer stockMaximo;
     private Boolean esParaElaborar;
-
-    @OneToMany(mappedBy = "articuloInsumo")
-    @Builder.Default
-    private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();
+    
 }

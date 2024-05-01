@@ -19,8 +19,4 @@ public class Empresa extends Base{
     private String razonSocial;
     private Integer cuil;
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @Builder.Default
-    private Set<Sucursal> sucursales = new HashSet<>();
-
 }

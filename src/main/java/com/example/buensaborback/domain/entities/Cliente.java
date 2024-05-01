@@ -26,6 +26,10 @@ public class Cliente extends Base{
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "imagen_id")
+    private Imagen imagen;
+    
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Pedido> pedidos = new HashSet<>();
@@ -37,8 +41,6 @@ public class Cliente extends Base{
     @Builder.Default
     private Set<Domicilio> domicilios = new HashSet<>();
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "imagen_id")
-    private Imagen imagen;
+
 
 }

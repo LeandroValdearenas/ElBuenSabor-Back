@@ -22,7 +22,8 @@ public abstract class Articulo extends Base{
     protected String denominacion;
     protected Double precioVenta;
 
-    @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "articulo_id")
     @Builder.Default
     protected Set<Imagen> imagenes = new HashSet<>();
 
@@ -33,13 +34,5 @@ public abstract class Articulo extends Base{
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "Categoria_ID")
     protected Categoria categoria;
-
-    @OneToMany(mappedBy = "articulo")
-    @Builder.Default
-    protected Set<DetallePedido> detallePedidos = new HashSet<>();
-
-    @ManyToMany(mappedBy = "articulos", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @Builder.Default
-    protected Set<Promocion> estaEnPromociones = new HashSet<>();
-
+    
 }

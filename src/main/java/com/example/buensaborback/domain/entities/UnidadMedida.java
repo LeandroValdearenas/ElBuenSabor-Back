@@ -18,7 +18,4 @@ public class UnidadMedida extends Base{
 
     private String denominacion;
 
-    @OneToMany(mappedBy = "unidadMedida")
-    @Builder.Default
-    private Set<Articulo> articulos = new HashSet<>();
 }

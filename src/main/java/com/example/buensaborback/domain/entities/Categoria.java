@@ -27,11 +27,11 @@ public class Categoria extends Base{
     @JoinColumn(name = "categoria_padre_id")
     private Categoria categoria;
 
-    @ManyToMany(mappedBy = "categorias")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "sucursal_categoria",
+        joinColumns = @JoinColumn(name = "categoria_id"),
+        inverseJoinColumns = @JoinColumn(name = "sucursal_id"))
     @Builder.Default
     private Set<Sucursal> sucursales = new HashSet<>();
 
-    @OneToMany(mappedBy = "categoria")
-    @Builder.Default
-    private Set<Articulo> articulos = new HashSet<>();
 }

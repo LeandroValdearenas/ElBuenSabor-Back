@@ -22,7 +22,4 @@ public class Provincia extends Base{
     @JoinColumn(name = "pais_id")
     private Pais pais;
 
-    @OneToMany(mappedBy = "provincia")
-    @Builder.Default
-    private Set<Localidad> localidades = new HashSet<>();
 }

@@ -37,14 +37,12 @@ public class Pedido extends Base{
     @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 
-    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Factura factura;
-
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "pedido_id")
     @Builder.Default
     private Set<DetallePedido> detallePedidos = new HashSet<>();
 }

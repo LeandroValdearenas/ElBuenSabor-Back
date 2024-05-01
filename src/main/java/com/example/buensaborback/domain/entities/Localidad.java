@@ -21,7 +21,4 @@ public class Localidad extends Base{
     @JoinColumn(name = "provincia_id")
     private Provincia provincia;
 
-    @OneToMany(mappedBy = "localidad")
-    @Builder.Default
-    private Set<Domicilio> domicilios = new HashSet<>();
-}
+   }

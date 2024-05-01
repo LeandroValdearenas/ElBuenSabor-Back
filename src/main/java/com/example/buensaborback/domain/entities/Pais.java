@@ -18,7 +18,4 @@ public class Pais extends Base{
 
     private String nombre;
 
-    @OneToMany(mappedBy = "pais")
-    @Builder.Default
-    private Set<Provincia> provincias = new HashSet<>();
 }

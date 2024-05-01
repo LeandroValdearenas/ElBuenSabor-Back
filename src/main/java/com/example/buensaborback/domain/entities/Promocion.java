@@ -26,8 +26,7 @@ public class Promocion extends Base {
     private String descripcionDescuento;
     private Double precioPromocional;
     private TipoPromocion tipoPromocion;
-
-
+    
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "promocion_articulo",
             joinColumns = @JoinColumn(name = "promocion_id"),
@@ -35,7 +34,8 @@ public class Promocion extends Base {
     @Builder.Default
     private Set<Articulo> articulos = new HashSet<>();
 
-    @OneToMany(mappedBy = "promocion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "promocion_id")
     @Builder.Default
     private Set<Imagen> imagenes = new HashSet<>();
 

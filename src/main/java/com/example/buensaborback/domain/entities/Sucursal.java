@@ -24,21 +24,6 @@ public class Sucursal extends Base{
     @JoinColumn(name = "domicilio_id")
     private Domicilio domicilio;
     
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "sucursal_categoria",
-            joinColumns = @JoinColumn(name = "sucursal_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-    @Builder.Default
-    private Set<Categoria> categorias = new HashSet<>();
-
-    @OneToMany(mappedBy = "sucursal")
-    @Builder.Default
-    private Set<Pedido> pedidos = new HashSet<>();
-
-    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @Builder.Default
-    private Set<Promocion> promociones = new HashSet<>();
-
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;

@@ -16,15 +16,5 @@ import lombok.*;
 public class Imagen extends Base{
 
     private String url;
-
-    @OneToOne(mappedBy = "imagen")
-    private Cliente cliente;
     
-    @ManyToOne
-    @JoinColumn(name= "articulo_id")
-    private Articulo articulo;
-
-    @ManyToOne
-    @JoinColumn(name= "promocion_id")
-    private Promocion promocion;
 }
