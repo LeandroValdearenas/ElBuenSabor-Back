@@ -1,14 +1,10 @@
 package com.example.buensaborback.domain.entities;
 
-import com.example.buensaborback.domain.entities.enums.FormaPago;
+import com.example.buensaborback.domain.enums.FormaPago;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor

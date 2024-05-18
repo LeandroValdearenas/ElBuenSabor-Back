@@ -7,6 +7,8 @@ import lombok.experimental.SuperBuilder;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,7 +20,13 @@ public class ArticuloInsumo extends Articulo {
     
     private Double precioCompra;
     private Integer stockActual;
+    private Integer stockMinimo;
     private Integer stockMaximo;
     private Boolean esParaElaborar;
-    
+
+    @OneToMany(mappedBy = "articuloInsumo", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
+    @JsonBackReference(value = "insumo_manufacturadodetalles")
+    private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();
 }

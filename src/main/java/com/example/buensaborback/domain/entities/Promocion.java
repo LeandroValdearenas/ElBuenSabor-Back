@@ -1,6 +1,7 @@
 package com.example.buensaborback.domain.entities;
 
-import com.example.buensaborback.domain.entities.enums.TipoPromocion;
+import com.example.buensaborback.domain.enums.TipoPromocion;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,20 +27,17 @@ public class Promocion extends Base {
     private String descripcionDescuento;
     private Double precioPromocional;
     private TipoPromocion tipoPromocion;
-    
-    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinTable(name = "promocion_articulo",
-            joinColumns = @JoinColumn(name = "promocion_id"),
-            inverseJoinColumns = @JoinColumn(name = "articulo_id"))
-    @Builder.Default
-    private Set<Articulo> articulos = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "promocion_id")
+    @OneToMany(mappedBy = "promocion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<Imagen> imagenes = new HashSet<>();
+    private Set<ImagenPromocion> imagenes = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "sucursal_id")
-    private Sucursal sucursal;
+    @ManyToMany(mappedBy = "promociones")
+    @ToString.Exclude
+    @JsonIgnoreProperties({"nombre", "domicilio", "promociones"})
+    private Set<Sucursal> sucursales = new HashSet<>();
+
+    @OneToMany(mappedBy = "promocion", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @Builder.Default
+    private Set<PromocionDetalle> promocionDetalles = new HashSet<>();
 }

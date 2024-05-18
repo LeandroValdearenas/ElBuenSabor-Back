@@ -1,12 +1,13 @@
 package com.example.buensaborback.domain.entities;
 
-import com.example.buensaborback.domain.entities.enums.Estado;
-import com.example.buensaborback.domain.entities.enums.FormaPago;
-import com.example.buensaborback.domain.entities.enums.TipoEnvio;
+import com.example.buensaborback.domain.enums.Estado;
+import com.example.buensaborback.domain.enums.FormaPago;
+import com.example.buensaborback.domain.enums.TipoEnvio;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
@@ -29,20 +30,30 @@ public class Pedido extends Base{
     private FormaPago formaPago;
     private LocalDate fechaPedido;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "domicilio_id")
     private Domicilio domicilio;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JsonBackReference(value = "pedido_factura")
+    private Factura factura;
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnoreProperties({"pedidos", "domicilios", "usuario", "imagen"})
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "pedido_id")
+    @ManyToOne
+    @JoinColumn(name = "empleado_id")
+    @JsonIgnoreProperties({"pedidos", "domicilios", "usuario", "imagen", "rol"})
+    private Empleado empleado;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
     private Set<DetallePedido> detallePedidos = new HashSet<>();
 }
